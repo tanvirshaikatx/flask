@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 1.2em;
+            color: #555;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Quote Generator</h1>
+    <p id="quote">Click the button to get a motivational quote!</p>
+    <button onclick="getNewQuote()">Get New Quote</button>
+
+    <script>
+        async function getNewQuote() {
+            try {
+                // Fetch a new quote from the backend
+                const response = await fetch('/get-quote');
+                const data = await response.json();
+
+                // Update the quote displayed on the page
+                document.getElementById('quote').innerText = data.quote;
+            } catch (error) {
+                // Handle errors if there are any issues fetching the quote
+                document.getElementById('quote').innerText = "Error fetching new quote.";
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
